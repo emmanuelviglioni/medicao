@@ -1,12 +1,12 @@
 # Plano de Experimento – Scoping e Planejamento
 
-**Tema:** Comparação de Desempenho entre Algoritmos de Controle de Semáforos: Deep Reinforcement Learning x Sistema de Tempo Fixo em Ambiente de Simulação Urbana
+**Tema:** Comparação de Desempenho entre Algoritmos de Controle de Semáforos: Deep Reinforcement Learning Adaptativo x Sistema de Tempo Fixo em Ambiente de Simulação Urbana
 
 ## 1. Identificação Básica
 
 ### 1.1 Título do Experimento
 
-Avaliação do Impacto de um Algoritmo Baseado em Deep Reinforcement Learning na Redução de Tempo de Espera e Tempo de Viagem em Comparação com um Sistema de Semáforo de Tempo Fixo em Ambiente de Simulação de Tráfego Urbano.
+Avaliação do Impacto de um Algoritmo Adaptativo Baseado em Deep Reinforcement Learning na Redução de Tempo de Espera e Tempo de Viagem em Comparação com um Sistema de Semáforo de Tempo Fixo em Ambiente de Simulação de Tráfego Urbano.
 
 ### 1.2 ID / Código
 
@@ -18,6 +18,7 @@ EXP-TSC-DRL-2025
 |--------|------|-----------|
 | v1.0 | 03/12/2025 | Versão inicial do documento |
 | v1.1 | 08/12/2025 | Atualização do documento |
+| v1.2 | 08/12/2025 | Adição de mais cruzamentos |
 
 ### 1.4 Datas
 
@@ -113,11 +114,11 @@ As questões de pesquisa são formuladas para serem respondidas através da aná
 
 ## 4. Escopo e Participantes
 
-O experimento será conduzido em um ambiente de simulação de tráfego controlado, utilizando a ferramenta SUMO. O escopo abrange a comparação de dois algoritmos de controle de semáforos (Tempo Fixo e DRL) em um cenário de cruzamento urbano simples. Serão testados três cenários de tráfego distintos: baixo volume (madrugada), volume normal (período intermediário) e hora de pico (manhã/tarde).
+O experimento será conduzido em um ambiente de simulação de tráfego controlado, utilizando a ferramenta SUMO. O escopo abrange a comparação de dois algoritmos de controle de semáforos (Tempo Fixo e DRL) em uma pequena rede urbana composta por 4 cruzamentos em sequência (dispostos em uma malha 2x2), representando aproximadamente 2 quarteirões. Serão testados três cenários de tráfego distintos: baixo volume (madrugada), volume normal (período intermediário) e hora de pico (manhã/tarde).
 
 O experimento compreende a implementação dos algoritmos, configuração da simulação, execução de múltiplas réplicas para cada cenário e coleta automática de métricas através da interface TraCI. Os dados serão armazenados em arquivos estruturados (CSV) para posterior análise estatística.
 
-O escopo não inclui testes em redes viárias complexas com múltiplos cruzamentos, análise de outros algoritmos de IA além do DRL, ou validação em ambientes reais de tráfego. A análise se limita às métricas de tempo de espera e tempo de viagem, não abrangendo outras variáveis como emissões de poluentes ou consumo de combustível.
+O escopo não inclui testes em redes viárias muito complexas (com mais de 4 cruzamentos), análise de outros algoritmos de IA além do DRL, ou validação em ambientes reais de tráfego. A análise se limita às métricas de tempo de espera e tempo de viagem, não abrangendo outras variáveis como emissões de poluentes ou consumo de combustível.
 
 ---
 
@@ -172,6 +173,9 @@ Ao término de cada série de execuções para um cenário, os dados coletados s
 
 O modelo conceitual postula que o **método de controle de semáforos** (variável independente) influencia diretamente a **eficiência do fluxo de tráfego** (variáveis dependentes). Acredita-se que um algoritmo adaptativo, capaz de aprender e responder dinamicamente às condições de tráfego em tempo real, será mais eficiente que um algoritmo rígido de tempo fixo. Essa adaptabilidade resultará em redução do tempo de espera nas interseções, o que, por sua vez, reduzirá o tempo total de viagem dos veículos.
 
+**Diagrama Conceitual (Mermaid)**
+Adicionar diagrama conceitual
+
 ### 7.2 Hipóteses Formais
 
 **Hipóteses relacionadas ao Objetivo O1 – Tempo de Espera**
@@ -199,7 +203,7 @@ O nível de significância (α) adotado para todos os testes de hipóteses será
 
 ### 8.1 Objetos de Estudo
 
-Os objetos de estudo são os **algoritmos de controle de semáforos** implementados e testados no ambiente de simulação. Cada algoritmo representa uma abordagem distinta para a gestão do tráfego em uma interseção urbana. Além disso, são considerados objetos de estudo os **registros de desempenho** gerados pela simulação, contendo as métricas de tempo de espera e tempo de viagem para cada execução.
+Os objetos de estudo são os **algoritmos de controle de semáforos** implementados e testados no ambiente de simulação. Cada algoritmo representa uma abordagem distinta para a gestão do tráfego em uma rede de múltiplas interseções urbanas. Além disso, são considerados objetos de estudo os **registros de desempenho** gerados pela simulação, contendo as métricas de tempo de espera e tempo de viagem para cada execução. As rotas dos veículos atravessam a rede de 4 cruzamentos, permitindo medir o tempo total de viagem de ponta a ponta.
 
 ### 8.2 Sujeitos / Participantes (Visão Geral)
 
@@ -211,8 +215,8 @@ O fator principal é o **Algoritmo de Controle de Semáforos**.
 
 **Fator F1 – Algoritmo de Controle de Semáforos**
 
-- **Nível 1:** Sistema de Tempo Fixo (grupo controle) – O semáforo alterna entre verde e vermelho em intervalos predefinidos, sem adaptação às condições de tráfego.
-- **Nível 2:** Algoritmo Adaptativo (DRL) (grupo tratamento) – O semáforo toma decisões de forma dinâmica, baseado em um modelo de aprendizado por reforço que foi treinado para otimizar o fluxo de tráfego.
+- **Nível 1:** Sistema de Tempo Fixo (grupo controle) – Todos os semáforos da rede alternam entre verde e vermelho em intervalos predefinidos e sincronizados, sem adaptação às condições de tráfego.
+- **Nível 2:** Algoritmo Adaptativo (DRL) (grupo tratamento) – Cada semáforo da rede toma decisões de forma dinâmica e coordenada, baseado em um modelo de aprendizado por reforço que foi treinado para otimizar o fluxo de tráfego em toda a rede.
 
 Um segundo fator implícito é o **Cenário de Tráfego**, representado por três níveis: baixo volume, volume normal e hora de pico. Este fator é utilizado principalmente para análise estratificada, permitindo avaliar se o desempenho relativo dos algoritmos varia conforme as condições de tráfego.
 
@@ -220,9 +224,9 @@ Um segundo fator implícito é o **Cenário de Tráfego**, representado por trê
 
 Serão consideradas duas condições experimentais principais:
 
-**Tratamento T0 – Controle (Tempo Fixo):** A simulação utiliza um algoritmo de controle de semáforo com tempo fixo, onde a duração dos sinais verde e vermelho é predefinida e não se altera durante a simulação, independentemente das condições de tráfego.
+**Tratamento T0 – Controle (Tempo Fixo):** A simulação utiliza um algoritmo de controle de semáforo com tempo fixo, onde a duração dos sinais verde e vermelho é predefinida e sincronizada para todos os 4 cruzamentos da rede, não se alterando durante a simulação, independentemente das condições de tráfego.
 
-**Tratamento T1 – Adaptativo (DRL):** A simulação utiliza um algoritmo de controle baseado em Deep Reinforcement Learning, onde o semáforo toma decisões adaptativas em tempo real, baseado nas condições atuais do tráfego (número de veículos nas filas, tempo de espera, etc.).
+**Tratamento T1 – Adaptativo (DRL):** A simulação utiliza um algoritmo de controle baseado em Deep Reinforcement Learning, onde cada um dos 4 semáforos da rede toma decisões adaptativas em tempo real e coordenadas, baseado nas condições atuais do tráfego (número de veículos nas filas, tempo de espera, estado dos semáforos adjacentes, etc.).
 
 ### 8.5 Variáveis Dependentes (Respostas)
 
@@ -236,10 +240,11 @@ As principais variáveis de resposta são diretamente associadas às métricas d
 
 Para garantir uma comparação justa entre os tratamentos, os seguintes fatores serão mantidos constantes em todas as execuções:
 
-- **Topologia da Rede Viária:** A estrutura do cruzamento será idêntica para todos os testes.
+- **Topologia da Rede Viária:** A estrutura da rede com 4 cruzamentos (malha 2x2) será idêntica para todos os testes.
 - **Características dos Veículos:** Velocidade máxima, aceleração, comprimento e comportamento dos motoristas serão os mesmos.
 - **Padrões de Geração de Veículos:** Para cada cenário de tráfego, o volume e a distribuição temporal de veículos serão mantidos consistentes.
 - **Duração da Simulação:** Todas as execuções terão a mesma duração de tempo simulado.
+- **Rotas dos Veículos:** As rotas serão pré-definidas, com veículos entrando em um ponto da rede e saindo em outro, atravessando múltiplos cruzamentos.
 
 ### 8.7 Possíveis Variáveis de Confusão Conhecidas
 
@@ -275,7 +280,7 @@ O experimento considera dois grupos de tratamento: Tempo Fixo e DRL. Serão test
 
 ## 10. População, Sujeitos e Amostragem
 
-A **população-alvo** deste experimento é composta por **fluxos de tráfego em cruzamentos urbanos simples** em cidades brasileiras de médio porte. O objetivo é que os resultados possam ser generalizados para contextos urbanos com características similares de infraestrutura viária e padrões de congestionamento.
+A **população-alvo** deste experimento é composta por **fluxos de tráfego em redes urbanas de pequeno porte** (2-4 cruzamentos) em cidades brasileiras de médio porte. O objetivo é que os resultados possam ser generalizados para contextos urbanos com características similares de infraestrutura viária e padrões de congestionamento em malhas urbanas simples.
 
 A **amostra** do experimento é composta por 180 execuções de simulação, distribuídas conforme descrito na seção anterior. Cada execução representa uma observação independente do desempenho de um algoritmo de controle sob um cenário específico de tráfego.
 
@@ -397,14 +402,15 @@ A validade externa refere-se à capacidade de generalizar os resultados do estud
 
 **Principais Ameaças:**
 
-- **Cenário Simplificado:** O experimento utiliza um cruzamento simples, que pode não representar a complexidade de redes viárias reais.
+- **Rede Pequena:** O experimento utiliza uma rede pequena (4 cruzamentos), que pode não representar a complexidade de redes viárias urbanas maiores.
 - **Dados Sintéticos:** O uso de dados de simulação pode não capturar todas as nuances do tráfego real.
 
 **Estratégias de Mitigação:**
 
 - Explicitação clara das limitações da validade externa nas conclusões.
-- Sugestão de estudos futuros que repliquem o experimento em redes mais complexas e, se possível, com dados reais.
+- Sugestão de estudos futuros que repliquem o experimento em redes maiores e mais complexas, e, se possível, com dados reais.
 - Escolha de parâmetros de simulação baseados em características realistas de cidades brasileiras.
+- Documentação clara da topologia da rede utilizada para facilitar futuras replicações em contextos diferentes.
 
 ### 13.5 Resumo das Principais Ameaças e Estratégias de Mitigação
 
