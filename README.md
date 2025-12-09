@@ -175,7 +175,7 @@ Ao término de cada série de execuções para um cenário, os dados coletados s
 O modelo conceitual postula que o **método de controle de semáforos** (variável independente) influencia diretamente a **eficiência do fluxo de tráfego** (variáveis dependentes). Acredita-se que um algoritmo adaptativo, capaz de aprender e responder dinamicamente às condições de tráfego em tempo real, será mais eficiente que um algoritmo rígido de tempo fixo. Essa adaptabilidade resultará em redução do tempo de espera nas interseções, o que, por sua vez, reduzirá o tempo total de viagem dos veículos.
 
 **Diagrama Conceitual (Mermaid)**
-Adicionar diagrama conceitual
+<img width="2048" height="4772" alt="diagrama_conceitual" src="https://github.com/emmanuelviglioni/medicao/blob/main/refs/diagrama_conceitual.png" />
 
 ### 7.2 Hipóteses Formais
 
