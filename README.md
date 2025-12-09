@@ -19,6 +19,7 @@ EXP-TSC-DRL-2025
 | v1.0 | 03/12/2025 | Versão inicial do documento |
 | v1.1 | 08/12/2025 | Atualização do documento |
 | v1.2 | 08/12/2025 | Adição de mais cruzamentos |
+| v1.3 | 08/12/2025 | Melhorias na seção 20 |
 
 ### 1.4 Datas
 
@@ -536,13 +537,102 @@ Comunicação formal será obrigatória:
 
 ## 20. Critérios de Prontidão para Execução
 
-O experimento estará pronto para começar quando:
+### 20.1 Checklist de Prontidão
 
-- [x] O plano de experimento estiver finalizado e aprovado pelo Orientador.
-- [x] O ambiente de simulação no SUMO estiver configurado e testado.
-- [x] Os dois algoritmos (Tempo Fixo e DRL) estiverem implementados e validados.
-- [x] O script para automatizar as execuções estiver funcional.
-- [x] Um teste piloto com um pequeno número de execuções tiver sido realizado com sucesso.
+A execução do experimento somente poderá começar quando todos os itens abaixo estiverem concluídos, revisados e aprovados:
+
+**1. Documentação e Plano Experimental**
+
+- Plano de Experimento finalizado, revisado e aprovado pelo Orientador.
+- Modelo conceitual e desenho experimental concluídos e validados.
+- Seções de validade, ética, governança, cronograma e orçamento finalizadas.
+- Diagrama conceitual do experimento concluído e documentado.
+
+**2. Ambiente Técnico e Infraestrutura**
+
+- Repositório Git criado e acessível para armazenamento do código.
+- SUMO instalado e configurado com a rede de 4 cruzamentos (malha 2x2).
+- Interface TraCI testada e funcional para comunicação entre Python e SUMO.
+- Algoritmo de Tempo Fixo implementado e validado.
+- Algoritmo de DRL implementado, treinado e validado.
+- Scripts Python para automação das execuções concluídos e testados.
+- Sistema de armazenamento de dados (CSV) configurado e testado.
+- Scripts de coleta, transformação e consolidação dos dados revisados e testados.
+
+**3. Configuração da Simulação**
+
+- Arquivo de configuração da rede viária (XML do SUMO) finalizado.
+- Padrões de geração de veículos para os 3 cenários de tráfego definidos e testados.
+- Rotas dos veículos (entrada e saída da rede) pré-definidas e validadas.
+- Parâmetros de simulação (velocidade, aceleração, etc.) documentados.
+
+**4. Teste Piloto**
+
+- Execução de um piloto técnico contendo:
+  - Simulação de teste com ambos os algoritmos.
+  - Coleta automática de métricas no arquivo CSV.
+  - Verificação de ponta a ponta do fluxo completo (código → simulação → coleta de dados).
+- Validação de que as métricas são coletadas corretamente.
+- Documentação de qualquer ajuste necessário com base nos resultados do piloto.
+
+**5. Plano de Análise de Dados**
+
+- Scripts de análise estatística (testes t, Mann-Whitney U, etc.) preparados e testados.
+- Ambiente de análise (Python com Pandas, NumPy, SciPy) configurado.
+- Procedimentos de limpeza, normalização e tratamento de outliers documentados.
+
+**6. Comunicação e Governança**
+
+- Comunicação prévia enviada ao Orientador com:
+  - Objetivos do experimento.
+  - Datas previstas para execução.
+  - Responsabilidades.
+  - Instruções operacionais.
+- Confirmação de recebimento e entendimento das instruções pelo Orientador.
+- Definição do responsável por acompanhar o experimento.
+- Calendário com marcos, checkpoints e reuniões definido.
+- Fluxo de controle de mudanças estabelecido.
+- Critérios de bloqueio e retomada (go/no-go) documentados.
+
+### 20.2 Aprovações Finais para Iniciar a Operação
+
+Antes do início oficial da execução do experimento, é necessário registrar o aceite formal das seguintes partes:
+
+**1. Pesquisador Responsável (Estudante)**
+
+Confirma que:
+
+- Todo o plano está completo e validado.
+- Infraestrutura foi testada e está funcional.
+- Riscos foram avaliados e mitigados.
+- Ambiente técnico está pronto.
+- Teste piloto foi bem-sucedido.
+
+Registro do aceite: Assinatura digital ou formulário de confirmação.
+
+**2. Orientador Acadêmico**
+
+Confirma que:
+
+- Plano de experimento está cientificamente sólido.
+- Metodologia é apropriada para responder às questões de pesquisa.
+- Riscos e ameaças à validade foram adequadamente considerados.
+- Projeto está pronto para execução.
+
+Registro do aceite: Assinatura digital ou e-mail de confirmação.
+
+**3. Apoio Técnico (se aplicável)**
+
+Confirma que:
+
+- Ambiente técnico está funcional e estável.
+- SUMO, TraCI e scripts Python foram verificados.
+- Sistema de armazenamento de dados está operacional.
+- Coleta automática de métricas foi testada.
+
+Registro do aceite: Checklist técnico assinado digitalmente.
+
+Após o registro de todas as aprovações, o experimento está oficialmente **"READY"**, autorizado para início da execução.
 
 ---
 
