@@ -20,6 +20,7 @@ EXP-TSC-DRL-2025
 | v1.1 | 08/12/2025 | Atualização do documento |
 | v1.2 | 08/12/2025 | Adição de mais cruzamentos |
 | v1.3 | 08/12/2025 | Melhorias na seção 20 |
+| v1.4 | 15/12/2025 | Melhorias sugeridas pelo professor |
 
 ### 1.4 Datas
 
@@ -84,6 +85,10 @@ Avaliar a redução no tempo médio total de viagem dos veículos ao utilizar o 
 
 Comparar a eficiência dos dois algoritmos em diferentes cenários de tráfego (baixo volume, volume normal e hora de pico).
 
+**3.2.4 Objetivo Específico 4 – Análise de Robustez e Estabilidade**
+
+Verificar a estabilidade e a robustez do algoritmo DRL, analisando a consistência de seu desempenho e sua capacidade de evitar condições indesejadas, como o bloqueio prolongado de uma via (starvation).
+
 ### 3.3 Questões de Pesquisa
 
 As questões de pesquisa são formuladas para serem respondidas através da análise dos dados coletados:
@@ -94,32 +99,58 @@ As questões de pesquisa são formuladas para serem respondidas através da aná
 
 ### 3.4 Tabela GQM – Objetivos, Perguntas e Métricas
 
-| Objetivo | Perguntas (Q) | Métricas (M) |
-|----------|---------------|-------------|
-| O1 – Tempo de Espera | Q1: O tempo de espera é reduzido com DRL? Q1.1: Qual é a magnitude da redução? | M1, M2 |
-| O2 – Tempo de Viagem | Q2: O tempo de viagem é reduzido com DRL? Q2.1: Qual é a magnitude da redução? | M3, M4 |
-| O3 – Eficiência Relativa | Q3: A eficiência varia por cenário? Q3.1: Qual cenário apresenta maior benefício? | M5, M6 |
+| Objetivo Específico | Perguntas de Pesquisa | Métricas Associadas |
+|---|---|---|
+| **O1: Redução de Tempo de Espera** | Q1.1: O algoritmo DRL reduz o tempo médio de espera em comparação com o sistema de tempo fixo? | M1, M2 |
+| | Q1.2: Qual é a magnitude da redução do tempo de espera em cada cenário de tráfego? | M7, M9 |
+| | Q1.3: O DRL consegue diminuir o tempo máximo que um veículo fica parado na fila? | M11, M12 |
+| **O2: Redução de Tempo de Viagem** | Q2.1: O algoritmo DRL diminui o tempo médio de viagem dos veículos na rede? | M3, M4 |
+| | Q2.2: A variabilidade (desvio padrão) do tempo de viagem é menor com o DRL, indicando maior previsibilidade? | M8, M10 |
+| | Q2.3: Como o tempo de viagem se comporta nos diferentes cenários de tráfego para cada algoritmo? | M3, M4 |
+| **O3: Eficiência Relativa e Vazão** | Q3.1: O algoritmo DRL aumenta a vazão de veículos (carros por hora) na rede? | M5, M6 |
+| | Q3.2: Em qual cenário de tráfego (baixo, normal, pico) o ganho de desempenho do DRL é mais pronunciado? | M7, M8 |
+| | Q3.3: O DRL é mais eficiente em reduzir o comprimento médio das filas? | M9, M2 |
+| **O4: Análise de Robustez e Estabilidade** | Q4.1: O tempo de decisão do agente DRL é baixo o suficiente para operação em tempo real? | M10, M1 |
+| | Q4.2: O algoritmo DRL evita o "starvation" (deixar uma via com sinal vermelho por tempo excessivo)? | M12, M2 |
+| | Q4.3: O desempenho do DRL se mantém estável ao longo de toda a duração da simulação? | M10, M11 |
 
 ### Tabela Geral de Métricas
 
-| Métrica | Descrição | Unidade |
-|---------|-----------|---------|
-| M1 – Tempo Médio de Espera (Tempo Fixo) | Tempo médio que um veículo permanece parado no semáforo no sistema de tempo fixo | Segundos |
-| M2 – Tempo Médio de Espera (DRL) | Tempo médio que um veículo permanece parado no semáforo no sistema adaptativo (DRL) | Segundos |
-| M3 – Tempo Médio de Viagem (Tempo Fixo) | Tempo médio total para um veículo percorrer a rede no sistema de tempo fixo | Segundos |
-| M4 – Tempo Médio de Viagem (DRL) | Tempo médio total para um veículo percorrer a rede no sistema adaptativo (DRL) | Segundos |
-| M5 – Redução Percentual de Espera | Percentual de redução no tempo de espera com DRL em relação ao tempo fixo | Percentual (%) |
-| M6 – Redução Percentual de Viagem | Percentual de redução no tempo de viagem com DRL em relação ao tempo fixo | Percentual (%) |
+| ID | Métrica | Descrição | Unidade |
+|---|---|---|---|
+| M1 | Tempo Médio de Espera (DRL) | Tempo médio que um veículo permanece parado em um semáforo sob o controle do algoritmo DRL. | Segundos (s) |
+| M2 | Tempo Médio de Espera (Tempo Fixo) | Tempo médio que um veículo permanece parado em um semáforo sob o controle do algoritmo de tempo fixo. | Segundos (s) |
+| M3 | Tempo Médio de Viagem (DRL) | Tempo médio total que um veículo leva para atravessar a rede de 4 cruzamentos com o controle DRL. | Segundos (s) |
+| M4 | Tempo Médio de Viagem (Tempo Fixo) | Tempo médio total que um veículo leva para atravessar a rede de 4 cruzamentos com o controle de tempo fixo. | Segundos (s) |
+| M5 | Vazão da Rede (DRL) | Número total de veículos que completaram suas rotas na rede durante o período de simulação com o controle DRL. | Veículos/hora |
+| M6 | Vazão da Rede (Tempo Fixo) | Número total de veículos que completaram suas rotas na rede durante o período de simulação com o controle de tempo fixo. | Veículos/hora |
+| M7 | Redução Percentual de Espera | Ganho de desempenho do DRL em relação ao tempo fixo para a métrica de tempo de espera. Calculado como `((M2 - M1) / M2) * 100`. | Percentual (%) |
+| M8 | Redução Percentual de Viagem | Ganho de desempenho do DRL em relação ao tempo fixo para a métrica de tempo de viagem. Calculado como `((M4 - M3) / M4) * 100`. | Percentual (%) |
+| M9 | Comprimento Médio da Fila | Número médio de veículos parados em uma fila de semáforo em um determinado instante. | Veículos |
+| M10 | Desvio Padrão do Tempo de Viagem | Medida da variabilidade ou consistência do tempo de viagem entre os veículos. Um valor menor indica maior previsibilidade. | Segundos (s) |
+| M11 | Tempo Máximo de Espera | O maior tempo de espera individual registrado para um único veículo. | Segundos (s) |
+| M12 | Tempo Máximo de Sinal Vermelho | O maior período contínuo de tempo que qualquer via ficou com o sinal vermelho, usado para verificar "starvation". | Segundos (s) |
 
 ---
 
-## 4. Escopo e Participantes
+## 4. Escopo do Experimento
 
-O experimento será conduzido em um ambiente de simulação de tráfego controlado, utilizando a ferramenta SUMO. O escopo abrange a comparação de dois algoritmos de controle de semáforos (Tempo Fixo e DRL) em uma pequena rede urbana composta por 4 cruzamentos em sequência (dispostos em uma malha 2x2), representando aproximadamente 2 quarteirões. Serão testados três cenários de tráfego distintos: baixo volume (madrugada), volume normal (período intermediário) e hora de pico (manhã/tarde).
-
-O experimento compreende a implementação dos algoritmos, configuração da simulação, execução de múltiplas réplicas para cada cenário e coleta automática de métricas através da interface TraCI. Os dados serão armazenados em arquivos estruturados (CSV) para posterior análise estatística.
-
-O escopo não inclui testes em redes viárias muito complexas (com mais de 4 cruzamentos), análise de outros algoritmos de IA além do DRL, ou validação em ambientes reais de tráfego. A análise se limita às métricas de tempo de espera e tempo de viagem, não abrangendo outras variáveis como emissões de poluentes ou consumo de combustível.
+| Seção | Descrição |
+|---|---|
+| **O que está DENTRO do escopo?** | |
+| Foco do Experimento | Comparação de desempenho entre dois algoritmos de controle de semáforos: um de tempo fixo (baseline) e um adaptativo (DRL). |
+| Ambiente | O experimento será conduzido exclusivamente em um ambiente de simulação utilizando o software SUMO. |
+| Rede Viária | A análise será realizada em uma rede urbana simulada composta por uma malha 2x2, totalizando 4 cruzamentos. |
+| Cenários de Tráfego | Serão avaliados três cenários distintos de densidade de tráfego: baixo, normal e pico. |
+| Métricas Coletadas | As métricas primárias de análise são: tempo médio de espera por veículo e tempo médio de viagem total. Métricas secundárias como tamanho da fila e vazão também serão coletadas. |
+| Análise | A análise dos dados será puramente quantitativa, com foco em testes de hipóteses estatísticas para comparar o desempenho dos algoritmos. |
+| **O que está FORA do escopo?** | |
+| Validação em Ambiente Real | O experimento não incluirá testes de campo ou validação em cruzamentos reais. Os resultados são restritos ao ambiente de simulação. |
+| Outros Algoritmos de IA | A comparação se limita ao algoritmo DRL especificado. Outras técnicas de IA (e.g., redes neurais, lógica fuzzy, outros algoritmos de RL) não serão avaliadas. |
+| Redes Complexas | A análise não será estendida para redes viárias de grande porte ou com topologias complexas (e.g., rotatórias, vias expressas). |
+| Métricas de Impacto Ambiental | O escopo não inclui a medição de consumo de combustível, emissões de CO2 ou outros poluentes. |
+| Fatores Humanos e Eventos Não Previstos | O experimento não modelará comportamentos de direção imprudentes, acidentes, obras na via ou outras anomalias que afetam o tráfego real. |
+| Otimização de Parâmetros | O foco é na comparação dos algoritmos já treinados/configurados, não na otimização fina de seus hiperparâmetros. |
 
 ---
 
@@ -210,24 +241,44 @@ Os objetos de estudo são os **algoritmos de controle de semáforos** implementa
 
 Neste experimento, não há participantes humanos. Os "sujeitos" são as **entidades virtuais** dentro da simulação: os veículos que se movem pela rede e as interseções onde o controle de semáforos é aplicado. O comportamento agregado desses sujeitos virtuais, sob a influência de cada algoritmo de controle, gera os dados para análise.
 
-### 8.3 Variáveis Independentes (Fatores) e seus Níveis
+### 8.3 Tabela de Variáveis do Experimento
 
-O fator principal é o **Algoritmo de Controle de Semáforos**.
+| Categoria da Variável | Nome da Variável | Descrição |
+|---|---|---|
+| **Variável Independente** | Algoritmo de Controle | O método utilizado para gerenciar os semáforos. É o fator principal que será manipulado no experimento. |
+| | Cenário de Tráfego | A densidade do fluxo de veículos na simulação. Atua como um fator secundário para análise de adaptabilidade. |
+| **Variáveis Dependentes** | Tempo Médio de Espera | O tempo médio que um veículo permanece parado em um semáforo. Mede a eficiência local do cruzamento. |
+| | Tempo Médio de Viagem | O tempo médio total que um veículo leva para percorrer sua rota completa na rede. Mede a eficiência global da rede. |
+| | Vazão da Rede | O número total de veículos que conseguem completar suas rotas em um determinado intervalo de tempo. Mede a capacidade do sistema. |
+| | Comprimento Médio da Fila | O número médio de veículos aguardando em uma fila de semáforo. Indica o nível de congestionamento. |
+| **Variáveis de Controle** | Topologia da Rede | A estrutura da malha viária (4 cruzamentos em 2x2), que será mantida idêntica para todos os testes. |
+| | Características dos Veículos | Propriedades como velocidade máxima, aceleração e comprimento dos veículos, que serão padronizadas. |
+| | Duração da Simulação | Todas as execuções terão a mesma duração de tempo simulado para garantir uma base de comparação justa. |
+| **Variáveis de Confusão** | Aleatoriedade da Simulação | Pequenas variações na geração de veículos ou em suas decisões de rota, que podem introduzir ruído nos resultados. |
+| | Qualidade do Treinamento do DRL | O desempenho do algoritmo DRL depende da qualidade do seu treinamento prévio. Um modelo mal treinado pode levar a conclusões inválidas. |
 
-**Fator F1 – Algoritmo de Controle de Semáforos**
+### 8.4 Fatores, Tratamentos e Combinações
 
-- **Nível 1:** Sistema de Tempo Fixo (grupo controle) – Todos os semáforos da rede alternam entre verde e vermelho em intervalos predefinidos e sincronizados, sem adaptação às condições de tráfego.
-- **Nível 2:** Algoritmo Adaptativo (DRL) (grupo tratamento) – Cada semáforo da rede toma decisões de forma dinâmica e coordenada, baseado em um modelo de aprendizado por reforço que foi treinado para otimizar o fluxo de tráfego em toda a rede.
+O experimento possui um desenho fatorial 2x3, combinando os níveis de dois fatores principais para criar os tratamentos.
 
-Um segundo fator implícito é o **Cenário de Tráfego**, representado por três níveis: baixo volume, volume normal e hora de pico. Este fator é utilizado principalmente para análise estratificada, permitindo avaliar se o desempenho relativo dos algoritmos varia conforme as condições de tráfego.
+| Fator | Níveis | Descrição |
+|---|---|---|
+| **F1: Algoritmo de Controle** | Nível 1: Tempo Fixo | Grupo de controle. Utiliza um plano de semáforos com ciclos e fases pré-definidos e não adaptativos. |
+| | Nível 2: DRL | Grupo de tratamento. Utiliza um agente de aprendizado por reforço para ajustar dinamicamente as fases do semáforo. |
+| **F2: Cenário de Tráfego** | Nível 1: Baixo | Simula condições de tráfego de baixa demanda (e.g., madrugada), com poucos veículos na rede. |
+| | Nível 2: Normal | Simula condições de tráfego moderado, representando o fluxo durante a maior parte do dia. |
+| | Nível 3: Pico | Simula condições de tráfego intenso (e.g., horário de rush), com alto volume de veículos e potencial de congestionamento. |
 
-### 8.4 Tratamentos (Condições Experimentais)
+A combinação desses fatores resulta nos seguintes 6 tratamentos (condições experimentais) que serão aplicados:
 
-Serão consideradas duas condições experimentais principais:
-
-**Tratamento T0 – Controle (Tempo Fixo):** A simulação utiliza um algoritmo de controle de semáforo com tempo fixo, onde a duração dos sinais verde e vermelho é predefinida e sincronizada para todos os 4 cruzamentos da rede, não se alterando durante a simulação, independentemente das condições de tráfego.
-
-**Tratamento T1 – Adaptativo (DRL):** A simulação utiliza um algoritmo de controle baseado em Deep Reinforcement Learning, onde cada um dos 4 semáforos da rede toma decisões adaptativas em tempo real e coordenadas, baseado nas condições atuais do tráfego (número de veículos nas filas, tempo de espera, estado dos semáforos adjacentes, etc.).
+| Código do Tratamento | F1: Algoritmo de Controle | F2: Cenário de Tráfego |
+|---|---|---|
+| T1 | Tempo Fixo | Baixo |
+| T2 | Tempo Fixo | Normal |
+| T3 | Tempo Fixo | Pico |
+| T4 | DRL | Baixo |
+| T5 | DRL | Normal |
+| T6 | DRL | Pico |
 
 ### 8.5 Variáveis Dependentes (Respostas)
 
@@ -289,9 +340,29 @@ O método de seleção dos cenários de tráfego utiliza uma **amostragem estrat
 
 ---
 
-## 11. Instrumentação e Protocolo Operacional
+## 11. Fluxograma do Experimento
 
-### 11.1 Instrumentos de Coleta
+O fluxograma a seguir apresenta uma visão geral de todos os passos operacionais do experimento, desde a preparação do ambiente até a análise final dos dados. O fluxograma detalha as decisões críticas, os loops de execução e os pontos de validação.
+
+![Fluxograma do Experimento](fluxograma_experimento_v2.png)
+
+**Descrição das Fases:**
+
+**Fase 1 – Preparação do Ambiente:** Instalação de ferramentas, configuração da rede viária, definição de cenários de tráfego, implementação dos algoritmos e realização de um teste piloto para validação.
+
+**Fase 2 – Execução Principal:** Loop principal de simulações, onde cada combinação de cenário e algoritmo é executada 30 vezes. Durante cada execução, as métricas são coletadas automaticamente via TraCI e armazenadas em arquivos CSV.
+
+**Fase 3 – Consolidação de Dados:** Validação da integridade dos dados, remoção de duplicatas e cálculo de estatísticas descritivas básicas.
+
+**Fase 4 – Análise Estatística:** Verificação de normalidade dos dados e aplicação de testes de hipóteses apropriados (paramétricos ou não paramétricos). Cálculo de ganhos percentuais de desempenho.
+
+**Fase 5 – Interpretação e Conclusão:** Interpretação dos resultados, geração de visualizações, documentação de ameaças à validade e escrita do relatório final.
+
+---
+
+## 12. Instrumentação e Protocolo Operacional
+
+### 12.1 Instrumentos de Coleta
 
 Os instrumentos de coleta de dados serão primariamente digitais e automatizados:
 
@@ -300,7 +371,7 @@ Os instrumentos de coleta de dados serão primariamente digitais e automatizados
 - **Scripts Python:** Implementação dos algoritmos de controle (Tempo Fixo e DRL) e orquestração das execuções das simulações.
 - **Arquivos CSV:** Armazenamento estruturado dos resultados de cada execução, contendo as métricas de interesse.
 
-### 11.2 Materiais de Suporte
+### 12.2 Materiais de Suporte
 
 Os materiais de suporte incluem:
 
@@ -308,7 +379,7 @@ Os materiais de suporte incluem:
 - **Arquivo README:** Guia passo a passo para configurar o ambiente, instalar dependências e executar o experimento.
 - **Arquivos de Configuração:** Definições do cenário viário, padrões de tráfego e parâmetros da simulação em formato estruturado (XML ou JSON).
 
-### 11.3 Procedimento Experimental (Protocolo – Visão Passo a Passo)
+### 12.3 Procedimento Experimental (Protocolo – Visão Passo a Passo)
 
 O protocolo experimental será executado de forma automatizada por um script principal:
 
@@ -322,15 +393,15 @@ O protocolo experimental será executado de forma automatizada por um script pri
 
 ---
 
-## 12. Plano de Análise de Dados (Pré-Execução)
+## 13. Plano de Análise de Dados (Pré-Execução)
 
 A análise dos dados será conduzida em três etapas principais:
 
-### 12.1 Etapa 1: Preparação dos Dados
+### 13.1 Etapa 1: Preparação dos Dados
 
 Inicialmente, será realizada a limpeza e normalização dos dados coletados. Os registros do arquivo CSV serão importados em um ambiente de análise (Python com bibliotecas Pandas e NumPy), onde serão verificadas inconsistências, valores faltantes e outliers. Outliers serão investigados para determinar se representam erros de coleta ou comportamentos legítimos da simulação.
 
-### 12.2 Etapa 2: Análise Descritiva
+### 13.2 Etapa 2: Análise Descritiva
 
 Para cada tratamento e cenário de tráfego, serão calculadas estatísticas descritivas:
 
@@ -340,7 +411,7 @@ Para cada tratamento e cenário de tráfego, serão calculadas estatísticas des
 
 Gráficos de box plot e histogramas serão gerados para visualizar a distribuição dos dados e comparar os grupos experimentalmente.
 
-### 12.3 Etapa 3: Análise Inferencial
+### 13.3 Etapa 3: Análise Inferencial
 
 Para comparar as médias dos dois grupos (Tempo Fixo vs. DRL), será utilizado o **Teste t de Student independente**. Antes, o teste de **Shapiro-Wilk** será usado para verificar se os dados seguem uma distribuição normal. Se a normalidade não for atendida, o teste não paramétrico de **Mann-Whitney U** será usado como alternativa.
 
@@ -350,11 +421,11 @@ Cada hipótese definida previamente em H0/H1 será avaliada considerando um nív
 
 ---
 
-## 13. Avaliação da Validade
+## 14. Avaliação da Validade
 
 Nesta seção, identificamos e abordamos as principais ameaças à validade do experimento, garantindo que as conclusões sobre o impacto do algoritmo adaptativo sejam robustas e bem fundamentadas.
 
-### 13.1 Validade de Conclusão
+### 14.1 Validade de Conclusão
 
 A validade de conclusão se concentra em garantir que as inferências estatísticas entre o tratamento (DRL) e os resultados observados sejam corretas.
 
@@ -369,7 +440,7 @@ A validade de conclusão se concentra em garantir que as inferências estatísti
 - Uso de múltiplas réplicas com diferentes sementes aleatórias para diluir o efeito do acaso.
 - Aplicação de testes estatísticos robustos (não paramétricos) quando apropriado.
 
-### 13.2 Validade Interna
+### 14.2 Validade Interna
 
 A validade interna se refere à confiança de que as mudanças observadas nas variáveis dependentes foram causadas pela manipulação da variável independente (algoritmo de controle).
 
@@ -384,7 +455,7 @@ A validade interna se refere à confiança de que as mudanças observadas nas va
 - Garantir que o algoritmo DRL seja adequadamente treinado antes do experimento, validando sua convergência.
 - Manutenção de variáveis de controle constantes entre os grupos.
 
-### 13.3 Validade de Constructo
+### 14.3 Validade de Constructo
 
 A validade de constructo refere-se ao grau em que as medidas utilizadas no estudo representam os conceitos teóricos de interesse.
 
@@ -397,7 +468,7 @@ A validade de constructo refere-se ao grau em que as medidas utilizadas no estud
 - Uso de múltiplas métricas (tempo de espera e tempo de viagem) para fornecer uma visão mais completa do desempenho.
 - Justificação clara de por que essas métricas foram escolhidas como proxies para eficiência.
 
-### 13.4 Validade Externa
+### 14.4 Validade Externa
 
 A validade externa refere-se à capacidade de generalizar os resultados do estudo para outros contextos.
 
@@ -413,7 +484,7 @@ A validade externa refere-se à capacidade de generalizar os resultados do estud
 - Escolha de parâmetros de simulação baseados em características realistas de cidades brasileiras.
 - Documentação clara da topologia da rede utilizada para facilitar futuras replicações em contextos diferentes.
 
-### 13.5 Resumo das Principais Ameaças e Estratégias de Mitigação
+### 14.5 Resumo das Principais Ameaças e Estratégias de Mitigação
 
 | Tipo de Validade | Ameaça Principal | Estratégia de Mitigação |
 |---|---|---|
@@ -424,7 +495,7 @@ A validade externa refere-se à capacidade de generalizar os resultados do estud
 
 ---
 
-## 14. Ética, Privacidade e Conformidade
+## 15. Ética, Privacidade e Conformidade
 
 Como o experimento será conduzido inteiramente em um ambiente de simulação, sem a participação de sujeitos humanos ou coleta de dados pessoais, as questões éticas tradicionalmente associadas à pesquisa com pessoas não se aplicam. A pesquisa não envolve a coleta de dados de indivíduos, eliminando preocupações com privacidade e consentimento informado.
 
@@ -434,14 +505,14 @@ Não é necessária a submissão do projeto a um Comitê de Ética em Pesquisa (
 
 ---
 
-## 15. Recursos e Infraestrutura
+## 16. Recursos e Infraestrutura
 
-### 15.1 Recursos Humanos e Papéis
+### 16.1 Recursos Humanos e Papéis
 
 - **Pesquisador Principal (Estudante):** Responsável pelo planejamento, implementação, execução do experimento, análise dos dados e redação do relatório final.
 - **Orientador / Professor:** Responsável pela supervisão científica, revisão do plano experimental e validação dos resultados.
 
-### 15.2 Infraestrutura Técnica Necessária
+### 16.2 Infraestrutura Técnica Necessária
 
 - **Hardware:** Um computador pessoal (desktop ou notebook) com capacidade de processamento adequada para executar as simulações.
 - **Software:**
@@ -450,17 +521,17 @@ Não é necessária a submissão do projeto a um Comitê de Ética em Pesquisa (
   - Linguagem de Programação: Python 3.8+.
   - Bibliotecas Python: NumPy, Pandas, Matplotlib, SciPy (todas de código aberto).
 
-### 15.3 Materiais e Insumos
+### 16.3 Materiais e Insumos
 
 Todos os materiais necessários são digitais e de código aberto. Não há necessidade de materiais físicos ou licenças de software pagas.
 
-### 15.4 Orçamento e Custos Estimados
+### 16.4 Orçamento e Custos Estimados
 
 O projeto tem um custo direto estimado de **zero**, pois se baseia exclusivamente em ferramentas de software de código aberto e hardware de uso pessoal. Custos indiretos, como o consumo de energia elétrica durante a execução das simulações, são considerados marginais.
 
 ---
 
-## 16. Cronograma e Marcos
+## 17. Cronograma e Marcos
 
 | Semana | Atividade | Marco |
 |--------|-----------|-------|
@@ -471,27 +542,27 @@ O projeto tem um custo direto estimado de **zero**, pois se baseia exclusivament
 
 ---
 
-## 17. Governança do Experimento
+## 18. Governança do Experimento
 
-### 17.1 Papéis e Responsabilidades Formais
+### 18.1 Papéis e Responsabilidades Formais
 
 - **Quem Executa (Responsible):** O Pesquisador Principal (Estudante) é responsável por todas as atividades de implementação, execução e análise.
 - **Quem Revisa (Consulted):** O Orientador / Professor será consultado em etapas críticas, como a finalização do plano, a validação do algoritmo DRL e a análise dos resultados.
 - **Quem Decide (Accountable):** O Orientador / Professor é o responsável final pelas decisões científicas do experimento.
 
-### 17.2 Ritos de Acompanhamento
+### 18.2 Ritos de Acompanhamento
 
 Serão realizadas **reuniões semanais** entre o Pesquisador Principal e o Orientador para discussão do progresso, solução de dúvidas e revisão de resultados parciais.
 
-### 17.3 Processo de Controle de Mudanças
+### 18.3 Processo de Controle de Mudanças
 
 Qualquer mudança necessária no plano após sua aprovação inicial deverá ser formalmente proposta ao Orientador, incluindo justificativa e análise de impacto. A mudança só será implementada após aprovação explícita.
 
 ---
 
-## 18. Plano de Documentação e Reprodutibilidade
+## 19. Plano de Documentação e Reprodutibilidade
 
-### 18.1 Repositórios e Convenções de Nomeação
+### 19.1 Repositórios e Convenções de Nomeação
 
 Todo o código-fonte, scripts, arquivos de configuração e dados serão armazenados em um repositório Git. Será adotada uma convenção clara de nomeação para arquivos e pastas:
 
@@ -500,7 +571,7 @@ Todo o código-fonte, scripts, arquivos de configuração e dados serão armazen
 - `/data`: dados brutos e processados.
 - `/analysis`: scripts de análise estatística.
 
-### 18.2 Plano de Empacotamento para Replicação Futura
+### 19.2 Plano de Empacotamento para Replicação Futura
 
 Um "pacote de replicação" será criado contendo:
 
@@ -512,19 +583,19 @@ Um "pacote de replicação" será criado contendo:
 
 ---
 
-## 19. Plano de Comunicação
+## 20. Plano de Comunicação
 
-### 19.1 Públicos e Mensagens-Chave
+### 20.1 Públicos e Mensagens-Chave
 
 O principal público é o **Orientador / Professor**, que será comunicado sobre o progresso do trabalho através de reuniões semanais.
 
-### 19.2 Canais e Frequência de Comunicação
+### 20.2 Canais e Frequência de Comunicação
 
 - **Canal Principal:** Reuniões semanais (presenciais ou por vídeo).
 - **Canal Secundário:** E-mail para comunicações assíncronas.
 - **Frequência:** Semanal.
 
-### 19.3 Pontos de Comunicação Obrigatórios
+### 20.3 Pontos de Comunicação Obrigatórios
 
 Comunicação formal será obrigatória:
 
@@ -535,9 +606,9 @@ Comunicação formal será obrigatória:
 
 ---
 
-## 20. Critérios de Prontidão para Execução
+## 21. Critérios de Prontidão para Execução
 
-### 20.1 Checklist de Prontidão
+### 21.1 Checklist de Prontidão
 
 A execução do experimento somente poderá começar quando todos os itens abaixo estiverem concluídos, revisados e aprovados:
 
@@ -594,7 +665,7 @@ A execução do experimento somente poderá começar quando todos os itens abaix
 - Fluxo de controle de mudanças estabelecido.
 - Critérios de bloqueio e retomada (go/no-go) documentados.
 
-### 20.2 Aprovações Finais para Iniciar a Operação
+### 21.2 Aprovações Finais para Iniciar a Operação
 
 Antes do início oficial da execução do experimento, é necessário registrar o aceite formal das seguintes partes:
 
