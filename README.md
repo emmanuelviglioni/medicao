@@ -344,7 +344,7 @@ O método de seleção dos cenários de tráfego utiliza uma **amostragem estrat
 
 O fluxograma a seguir apresenta uma visão geral de todos os passos operacionais do experimento, desde a preparação do ambiente até a análise final dos dados. O fluxograma detalha as decisões críticas, os loops de execução e os pontos de validação.
 
-![Fluxograma do Experimento](fluxograma_experimento_v2.png)
+<img alt="diagrama_conceitual" src="https://github.com/emmanuelviglioni/medicao/blob/main/refs/fluxograma_experimento_v2.png" />
 
 **Descrição das Fases:**
 
