@@ -712,3 +712,6 @@ Após o registro de todas as aprovações, o experimento está oficialmente **"R
 [1] Abdulhai, B., Pringle, R., & Karakoulas, G. (2003). Reinforcement learning for true adaptive traffic signal control. *Journal of Transportation Engineering*, 129(3), 278-285.
 
 [2] Genders, W., & Razavi, S. (2019). Deep reinforcement learning for traffic signal control: A survey. *IEEE Transactions on Intelligent Transportation Systems*, 20(10), 3691-3703.
+
+## Video de Apresentação
+https://www.loom.com/share/976b8abfb08841a2a8355c9f3bae598d
